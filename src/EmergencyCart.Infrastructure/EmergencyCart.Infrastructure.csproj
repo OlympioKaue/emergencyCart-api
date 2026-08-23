@@ -10,4 +10,18 @@
     <ProjectReference Include="..\EmergencyCart.Domain\EmergencyCart.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AccountContext\" />
+    <Folder Include="SharedContext\DepedencyInjections\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.19" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.19">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.19" />
+  </ItemGroup>
+
 </Project>

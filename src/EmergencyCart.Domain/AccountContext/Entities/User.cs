@@ -13,6 +13,8 @@ public sealed class User : Entity, IAggregateRoots
         Name = name;
         Email = email;
         Password = password;
+
+        IsActive = true;
     }
 
     #endregion
@@ -26,8 +28,10 @@ public sealed class User : Entity, IAggregateRoots
 
     #endregion
 
+    #region Factory Method
     public static User Create(Name name, Email email, Password password)
-    {
+    {      
         return new User(name, email, password);
     }
+    #endregion
 }
