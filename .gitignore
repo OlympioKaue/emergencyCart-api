@@ -428,8 +428,40 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-appsettings.json
+# ====================================================================
+# Arquivos de Configuração Sensíveis e Segredos de Desenvolvimento
+# ====================================================================
 
+# Configurações de ambiente e arquivos locais de override
+appsettings*.local.json
 appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+appsettings.Test.json
+# Mantém o appsettings.json principal caso queira versionar o template base:
+!appsettings.json
+!appsettings.json.example
 
-appsettings.Development.json
+# Configurações de inicialização local com dados sensíveis
+**/Properties/launchSettings.json
+
+# Segredos de usuário do .NET (User Secrets)
+secrets.json
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Certificados, chaves privadas e arquivos de conexão
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.crt
+*.publishsettings
+
+# Configurações de conexão de banco e schemas locais
+*.connectionstrings.config
+connections.config
