@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AccountContext\" />
+    <Folder Include="AccountContext\Repositories\" />
     <Folder Include="SharedContext\DepedencyInjections\" />
   </ItemGroup>
 
