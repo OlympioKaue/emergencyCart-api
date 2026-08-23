@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "7UdBHRTSxtE=",
+  "success": true,
+  "projectFilePath": "C:\\Projetos\\EmergencyCart\\src\\EmergencyCart.API\\EmergencyCart.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PC GAMER\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
+    "C:\\Users\\PC GAMER\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.17\\microsoft.aspnetcore.openapi.9.0.17.nupkg.sha512",
+    "C:\\Users\\PC GAMER\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
