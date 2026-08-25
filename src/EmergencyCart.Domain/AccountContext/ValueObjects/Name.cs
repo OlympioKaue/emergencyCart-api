@@ -5,7 +5,9 @@ namespace EmergencyCart.Domain.AccountContext.ValueObjects;
 
 public sealed partial record class Name : ValueObject
 {
-    private const string Pattern = @"^\p{L}+(?: \p{L}+)*$";
+    public const string Pattern = @"^\p{L}+(?: \p{L}+)*$";
+
+    private Name() { }
 
     private Name(string firstName, string lastName)
     {
@@ -14,8 +16,8 @@ public sealed partial record class Name : ValueObject
     }
 
     #region Properties
-    public string FirstName { get; }
-    public string LastName { get; }
+    public string FirstName { get; } = string.Empty;
+    public string LastName { get; } = string.Empty;
     #endregion
 
     #region Validation
@@ -40,5 +42,5 @@ public sealed partial record class Name : ValueObject
 
 
     [GeneratedRegex(Pattern)]
-    private static partial Regex NameRegex();
+    public static partial Regex NameRegex();
 }

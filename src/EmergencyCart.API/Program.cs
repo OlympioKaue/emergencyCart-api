@@ -1,8 +1,15 @@
+using EmergencyCart.Application.SharedContext.DependencyInjections;
+using EmergencyCart.Infrastructure.SharedContext.DepedencyInjections;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplicationSharedContext();
 
 var app = builder.Build();
 

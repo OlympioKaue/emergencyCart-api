@@ -8,7 +8,9 @@ public sealed class Item : Entity
     private readonly List<CartItem> _cartItems;
 
     #region Constructors
-    private Item() : base(Guid.CreateVersion7())
+    private Item() : base(Guid.CreateVersion7()) { }
+
+    private Item(Guid id) : base(id)
     {
         _cartItems = [];
     }

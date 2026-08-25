@@ -5,7 +5,9 @@ namespace EmergencyCart.Domain.AccountContext.ValueObjects;
 
 public sealed partial record class Password : ValueObject
 {
-    private const string Pattern = "^(?=.*[A-Z])(?=.*[\\W_]).+$";
+    public const string Pattern = "^(?=.*[A-Z])(?=.*[\\W_]).+$";
+
+    private Password() { }
 
     private Password(string password)
     {
@@ -13,7 +15,7 @@ public sealed partial record class Password : ValueObject
     }
 
     #region Properties
-    public string Hash { get; }
+    public string Hash { get; } = string.Empty;
     #endregion
 
     public static void Validate(string password)
@@ -40,12 +42,12 @@ public sealed partial record class Password : ValueObject
     #endregion
 
     #region Generate Password Hash
-    public static string Encrypt(string password)
+    private static string Encrypt(string password)
         => BCrypt.Net.BCrypt.HashPassword(password);
     #endregion
 
     #region Regex
     [GeneratedRegex(Pattern)]
-    private static partial Regex HashPasswordRegex();
+    public static partial Regex HashPasswordRegex();
     #endregion
 }

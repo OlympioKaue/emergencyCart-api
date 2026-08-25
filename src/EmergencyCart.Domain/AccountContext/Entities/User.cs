@@ -8,8 +8,11 @@ namespace EmergencyCart.Domain.AccountContext.Entities;
 public sealed class User : Entity, IAggregateRoots
 {
     #region // Constructors
-    private User(Name name, Email email, Password password) : base(Guid.CreateVersion7())
-    {
+    private User() : base(Guid.CreateVersion7()) { }
+
+    private User(Guid id, Name name, Email email, Password password) : base(id)
+    {    
+
         Name = name;
         Email = email;
         Password = password;
@@ -20,9 +23,9 @@ public sealed class User : Entity, IAggregateRoots
     #endregion
 
     #region Properties
-    public Name Name { get; }
-    public Email Email { get; }
-    public Password Password { get; }
+    public Name Name { get; } = null!;
+    public Email Email { get; } = null!;
+    public Password Password { get; } = null!;
     public Role Roles { get; }
     public bool IsActive { get; } = false;
 
@@ -31,7 +34,8 @@ public sealed class User : Entity, IAggregateRoots
     #region Factory Method
     public static User Create(Name name, Email email, Password password)
     {      
-        return new User(name, email, password);
+        var id = Guid.NewGuid();
+        return new User(id, name, email, password);
     }
     #endregion
 }

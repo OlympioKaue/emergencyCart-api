@@ -5,7 +5,9 @@ namespace EmergencyCart.Domain.AccountContext.Entities;
 public sealed class CartItem : Entity
 {
     #region Constructors
-    private CartItem() : base(Guid.CreateVersion7())
+    private CartItem() : base(Guid.CreateVersion7()) { }
+
+    private CartItem(Guid id) : base(id)
     {
 
     }

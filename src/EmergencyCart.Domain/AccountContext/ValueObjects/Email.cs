@@ -9,6 +9,8 @@ public sealed partial record class Email : ValueObject
     public const int MinLength = 3;
 
     #region Constructors
+    private Email() { }
+
     private Email(string email)
     {
         Address = email;
@@ -16,7 +18,7 @@ public sealed partial record class Email : ValueObject
     #endregion
 
     #region Properties
-    public string Address { get; }
+    public string Address { get; } = string.Empty;
     #endregion
 
     #region Validation

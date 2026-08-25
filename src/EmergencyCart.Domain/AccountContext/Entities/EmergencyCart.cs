@@ -7,7 +7,9 @@ public sealed class EmergencyCart : Entity
     private readonly List<CartItem> _cartItems;
 
     #region Constructors
-    private EmergencyCart() : base(Guid.CreateVersion7())
+    private EmergencyCart() : base(Guid.CreateVersion7()) { }
+
+    private EmergencyCart(Guid id) : base(id)
     {
         _cartItems = [];
     }

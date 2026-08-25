@@ -9,7 +9,9 @@ public sealed class Sector : Entity
     #endregion
 
     #region Constructors
-    private Sector() : base(Guid.CreateVersion7())
+
+    private Sector() : base(Guid.CreateVersion7()) { }
+    private Sector(Guid id) : base(id)
     {
         _emergencyCarts = [];
     }
@@ -22,5 +24,14 @@ public sealed class Sector : Entity
 
     #region Relationships
     public IReadOnlyCollection<EmergencyCart> EmergencyCarts => _emergencyCarts.ToArray();
+    #endregion
+
+
+    #region Factory Method
+    public static Sector Create()
+    {
+        var id = Guid.NewGuid();
+        return new Sector(id);
+    }
     #endregion
 }
