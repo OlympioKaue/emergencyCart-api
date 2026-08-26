@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EmergencyCart.Exception")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5af1eec05a046f6f260cf561189432f70f264bc2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a0e00c90585fec463b556530e955134c2e388c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("EmergencyCart.Exception")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EmergencyCart.Exception")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

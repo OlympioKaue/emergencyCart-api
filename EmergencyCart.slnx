@@ -3,7 +3,6 @@
     <Project Path="src/EmergencyCart.API/EmergencyCart.API.csproj" />
     <Project Path="src/EmergencyCart.Application/EmergencyCart.Application.csproj" />
     <Project Path="src/EmergencyCart.Domain/EmergencyCart.Domain.csproj" />
-    <Project Path="src/EmergencyCart.Exception/EmergencyCart.Exception.csproj" Id="a3a69e16-051a-4e1a-a68a-eca7857d2a0b" />
     <Project Path="src/EmergencyCart.Infrastructure/EmergencyCart.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/test/" />

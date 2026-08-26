@@ -1,7 +1,15 @@
-﻿namespace EmergencyCart.Application.SharedContext.Results;
+﻿using EmergencyCart.Application.SharedContext.Results.Enums;
 
-public record Error(string Code, string Message)
+namespace EmergencyCart.Application.SharedContext.Results;
+
+public record Error(string Code, string Message, ErrorType type)
 {
-    public static Error None = new(string.Empty, string.Empty);
-    public static Error NullValue = new("Error.NullValue", "Um valor nulo foi fornecido.");
+    public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);
+    public static readonly Error NullValue = new("Error.NullValue", "Um valor nulo foi fornecido.", ErrorType.Failure);
+
+    public static Error Failure(string code, string message) => new(code, message, ErrorType.Failure);
+    public static Error BadRequest(string code, string message) => new(code, message, ErrorType.BadRequest);
+    public static Error NotFound(string code, string message) => new(code, message, ErrorType.NotFound);
+    public static Error Conflict(string code, string message) => new(code, message, ErrorType.Conflict);
 }
+

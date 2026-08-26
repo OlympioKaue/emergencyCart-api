@@ -7,10 +7,10 @@ namespace EmergencyCart.Infrastructure.AccountContext.Repositories.Abstractions;
 
 internal class UserRepository(AppDbContext dbContext) : IUserRepository
 {
-    public async Task AddUser(User user)
-    => await dbContext.Users.AddAsync(user);
+    public async Task AddUserAsync(User user, CancellationToken cancellationToken)
+    => await dbContext.Users.AddAsync(user, cancellationToken);
 
-    public async Task<bool> VerifyEmailExistsAsync(string email)
-    => await dbContext.Users.AsNoTracking().AnyAsync(y => y.Email.Address == email);
+    public async Task<bool> VerifyEmailExistsAsync(string email, CancellationToken cancellationToken)
+    => await dbContext.Users.AsNoTracking().AnyAsync(y => y.Email.Address == email, cancellationToken);
 
 }

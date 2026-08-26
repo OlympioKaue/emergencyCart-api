@@ -2,6 +2,6 @@
 
 namespace EmergencyCart.Application.AccountContext.UseCases.Users.Create;
 
-public sealed record class Response(Guid id, string message) : ICommandResponse
+public sealed record class Response(string message) : ICommandResponse
 {
 }

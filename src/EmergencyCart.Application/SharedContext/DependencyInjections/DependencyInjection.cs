@@ -1,6 +1,4 @@
-﻿using EmergencyCart.Application.SharedContext.Behaviors;
-using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace EmergencyCart.Application.SharedContext.DependencyInjections;
 
@@ -16,10 +14,7 @@ public static class DependencyInjection
         services.AddMediatR(x =>
         {
             x.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-            x.AddOpenBehavior(typeof(LoggingBehavior<,>));
-            x.AddOpenBehavior(typeof(ValidationBehavior<,>));
+           
         });
-
-        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
     }
 }

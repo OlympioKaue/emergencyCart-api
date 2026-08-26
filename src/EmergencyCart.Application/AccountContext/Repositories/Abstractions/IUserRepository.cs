@@ -5,6 +5,6 @@ namespace EmergencyCart.Application.AccountContext.Repositories.Abstractions;
 
 public interface IUserRepository : IRepository<User>
 {
-    Task AddUser(User user);
-    Task<bool> VerifyEmailExistsAsync(string email);
+    Task AddUserAsync(User user, CancellationToken cancellationToken);
+    Task<bool> VerifyEmailExistsAsync(string email, CancellationToken cancellationToken);
 }
