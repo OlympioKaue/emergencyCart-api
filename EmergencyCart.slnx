@@ -7,5 +7,6 @@
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/EmergencyCart.Test/EmergencyCart.Test.csproj" Id="9323e907-7286-4883-82c0-4f31f16251d9" />
+    <Project Path="test/EmergencyCart.UniTest/EmergencyCart.UniTest.csproj" Id="b6764264-7c5f-4271-9547-4690a5c6061f" />
   </Folder>
 </Solution>

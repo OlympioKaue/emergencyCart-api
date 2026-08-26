@@ -1,0 +1,10 @@
+﻿using EmergencyCart.Application.AccountContext.UseCases.Users.Create;
+
+
+namespace EmergencyCart.UniTest.AccountContext;
+
+public sealed class CommandUser
+{
+    public static Command Build()
+    => new("Ronaldo", "De Souza", "ronaldosouza@gmail.com", "semSenha@");
+}
