@@ -40,7 +40,9 @@ public sealed partial record class Email : ValueObject
     {
         Validate(email);
 
-       return new Email(email);
+        var formattedEmail = email.ToLower();
+
+       return new Email(formattedEmail);
     }
     #endregion
 

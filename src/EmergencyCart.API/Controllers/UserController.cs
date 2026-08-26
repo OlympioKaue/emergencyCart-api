@@ -11,25 +11,24 @@ namespace EmergencyCart.API.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Create([FromServices] ISender sender, [FromBody] Command request)
         {
-            var result = await sender.Send(request);
+            var result = await sender.Send(request);    
 
             if (result.IsFailure)
             {
                 return result.Error.type switch
                 {
-                    ErrorType.NotFound => NotFound(ErrorResponse.From(result.Error)),
                     ErrorType.Conflict => Conflict(ErrorResponse.From(result.Error)),
 
                     _ => BadRequest(ErrorResponse.From(result.Error))
                 };
             }
 
-            return Ok(result);
+            return Created("", result.Value.message);
         }
     }
 }

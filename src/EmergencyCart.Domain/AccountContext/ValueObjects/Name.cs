@@ -26,7 +26,7 @@ public sealed partial record class Name : ValueObject
         if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
             throw new Exception();
 
-        if(!NameRegex().IsMatch(firstName) || !NameRegex().IsMatch(lastName))
+        if (!NameRegex().IsMatch(firstName) || !NameRegex().IsMatch(lastName))
             throw new Exception();
     }
     #endregion
@@ -36,7 +36,10 @@ public sealed partial record class Name : ValueObject
     {
         Validate(firstName, lastName);
 
-        return new Name(firstName, lastName);
+        var formattedFirstName = char.ToUpper(firstName[0]) + firstName[1..].ToLower();
+        var formattedLastName = char.ToUpper(lastName[0]) + lastName[1..].ToLower();
+
+        return new Name(formattedFirstName, formattedLastName);
     }
     #endregion
 

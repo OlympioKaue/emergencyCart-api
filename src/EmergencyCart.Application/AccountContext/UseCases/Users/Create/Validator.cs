@@ -7,28 +7,23 @@ public class Validator : AbstractValidator<Command>
 {
     public Validator()
     {
+        RuleLevelCascadeMode = CascadeMode.Stop;
+
         RuleFor(y => y.firstName)
-            .NotEmpty().WithMessage("erro de nome")
-            .Matches(Name.Pattern).WithMessage("erro para o nome");
+            .NotEmpty().WithMessage("Fistname cannot be empty")
+            .Matches(Name.Pattern).WithMessage("The First Name field must contain only letters and single spaces (no numbers or symbols)");
 
         RuleFor(y => y.lastName)
-            .NotEmpty().WithMessage("erro para sobreome")
-            .Matches(Name.Pattern).WithMessage("erro para sobreome");
+            .NotEmpty().WithMessage("Lastname cannot be empty")
+            .Matches(Name.Pattern).WithMessage("The Last Name field must contain only letters and single spaces (no numbers or symbols)");
 
         RuleFor(y => y.email)
-            .NotEmpty().WithMessage("erro para email")
-            .Matches(Email.Pattern).WithMessage("erro para email")
-            .Must(IsValidEmail).WithMessage("erro para email");
+            .NotEmpty().WithMessage("Email cannot be empty")
+            .Matches(Email.Pattern).WithMessage("Invalid email field. must contain more than 3 characters (ex:name@domain.com)");
 
         RuleFor(y => y.password)
-            .NotEmpty().WithMessage("erro para senha")
-            .Matches(Password.Pattern).WithMessage("erro para senha");
+            .NotEmpty().WithMessage("Password cannot be empty")
+            .Matches(Password.Pattern).WithMessage("Invalid password field");
 
-    }
-
-    private static bool IsValidEmail(string email)
-    {
-        var index = email.Split('@')[0];
-        return index.Length >= 3;
     }
 }

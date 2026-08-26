@@ -18,29 +18,21 @@ public sealed class Handler(IUserRepository userRepository, IUnitOfWork ofWork) 
         if (validationResult.IsFailure)
             return Result.Failure<Response>(validationResult.Error);
 
-        //VERIFICAR SE EMAIL EXISTE!
         var emailExists = await userRepository.VerifyEmailExistsAsync(request.email, cancellationToken);
         if (emailExists)
-            return Result.Failure<Response>(Error.Conflict("User.Conflict", "Email já em uso"));
+            return Result.Failure<Response>(Error.Conflict("User.Conflict", "E-mail already in use"));
 
-
-        //CRIAR O NOME
         var name = Name.Create(request.firstName, request.lastName);
 
-        //CRIAR O EMAIL
         var email = Email.Create(request.email);
 
-        //CRIAR O PASSWORD
         var password = Password.Create(request.password);
 
-        //CRIAR O USUARIO
         var user = User.Create(name, email, password);
 
-        //PERSISTIR DADOS
         await userRepository.AddUserAsync(user, cancellationToken);
         await ofWork.CommitAsync();
 
-        //RETORNAR MENSAGEM AO USUARIO.
         var response = new Response(Welcome);
         return Result.Success(response);
     }

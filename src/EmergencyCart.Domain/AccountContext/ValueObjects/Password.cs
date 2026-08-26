@@ -5,7 +5,7 @@ namespace EmergencyCart.Domain.AccountContext.ValueObjects;
 
 public sealed partial record class Password : ValueObject
 {
-    public const string Pattern = "^(?=.*[A-Z])(?=.*[\\W_]).+$";
+    public const string Pattern = "^(?=.*[A-Z])(?=.*[\\W_]).{7,}$";
 
     private Password() { }
 
@@ -23,7 +23,7 @@ public sealed partial record class Password : ValueObject
         if (string.IsNullOrWhiteSpace(password))
             throw new Exception();
 
-        if (password.Length < 5)
+        if (password.Length < 6)
             throw new Exception();
 
         if (!HashPasswordRegex().IsMatch(password))
