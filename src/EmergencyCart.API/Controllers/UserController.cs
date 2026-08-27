@@ -1,4 +1,5 @@
 ﻿using EmergencyCart.Application.AccountContext.UseCases.Users.Create;
+using EmergencyCart.Application.AccountContext.UseCases.Users.Update;
 using EmergencyCart.Application.SharedContext.Results;
 using EmergencyCart.Application.SharedContext.Results.Enums;
 using MediatR;
@@ -11,10 +12,12 @@ namespace EmergencyCart.API.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(EmergencyCart.Application.AccountContext.UseCases.Users.Create.Response), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> Create([FromServices] ISender sender, [FromBody] Command request)
+        public async Task<IActionResult> Create
+            ([FromServices] ISender sender, 
+            [FromBody] EmergencyCart.Application.AccountContext.UseCases.Users.Create.Command request)
         {
             var result = await sender.Send(request);    
 
@@ -29,6 +32,17 @@ namespace EmergencyCart.API.Controllers
             }
 
             return Created("", result.Value.message);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put
+            ([FromServices] ISender sender, 
+            [FromBody] EmergencyCart.Application.AccountContext.UseCases.Users.Update.Command request, 
+            [FromRoute] Guid id)
+        {
+            var result = await sender.Send(request with { id = id});
+
+            return Ok(result.Value);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using EmergencyCart.Application.AccountContext.UseCases.Users.Create;
+using EmergencyCart.Domain.AccountContext.Entities;
+using EmergencyCart.Domain.AccountContext.ValueObjects;
 using EmergencyCart.UniTest.AccountContext;
 using FluentValidation.TestHelper;
 using Shouldly;
@@ -29,6 +31,7 @@ public class CommandUserTest
 
         resultValidation.IsValid.ShouldBeTrue();
     }
+
     #endregion
 
     #region ShouldReturnFailure

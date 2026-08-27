@@ -11,7 +11,7 @@ public sealed class User : Entity, IAggregateRoots
     private User() : base(Guid.CreateVersion7()) { }
 
     private User(Guid id, Name name, Email email, Password password) : base(id)
-    {    
+    {
 
         Name = name;
         Email = email;
@@ -23,9 +23,9 @@ public sealed class User : Entity, IAggregateRoots
     #endregion
 
     #region Properties
-    public Name Name { get; } = null!;
-    public Email Email { get; } = null!;
-    public Password Password { get; } = null!;
+    public Name Name { get; private set; } = null!;
+    public Email Email { get; private set; } = null!;
+    public Password Password { get; private set; } = null!;
     public Role Roles { get; }
     public bool IsActive { get; } = false;
 
@@ -33,9 +33,25 @@ public sealed class User : Entity, IAggregateRoots
 
     #region Factory Method
     public static User Create(Name name, Email email, Password password)
-    {      
+    {
         var id = Guid.NewGuid();
         return new User(id, name, email, password);
     }
+
+    public void ChangeNameUpdate(string? firstName, string? lastName)
+    {
+        var newFirstName = string.IsNullOrWhiteSpace(firstName) ? Name.FirstName : firstName;
+        var newLastName = string.IsNullOrWhiteSpace(lastName) ? Name.LastName : lastName;
+
+        Name = Name.Create(newFirstName, newLastName);
+    }
+
+    public void ChangeEmailUpdate(string? email)
+    {
+        var newFirstEmail = string.IsNullOrWhiteSpace(email) ? Email.Address : email;
+
+        Email = Email.Create(newFirstEmail);
+    }
+
     #endregion
 }
