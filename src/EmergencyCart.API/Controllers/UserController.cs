@@ -1,6 +1,4 @@
-﻿using EmergencyCart.Application.AccountContext.UseCases.Users.Create;
-using EmergencyCart.Application.AccountContext.UseCases.Users.Update;
-using EmergencyCart.Application.SharedContext.Results;
+﻿using EmergencyCart.Application.SharedContext.Results;
 using EmergencyCart.Application.SharedContext.Results.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +31,10 @@ namespace EmergencyCart.API.Controllers
 
             return Created("", result.Value.message);
         }
-
+         
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put
             ([FromServices] ISender sender, 
@@ -46,13 +47,38 @@ namespace EmergencyCart.API.Controllers
             {
                 return result.Error.type switch
                 {
+                    ErrorType.NotFound => NotFound(ErrorResponse.From(result.Error)), 
+
+                    _ => BadRequest(ErrorResponse.From(result.Error))
+                };
+            }
+
+            return NoContent();
+        }
+
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        [HttpPut("{email}")]
+        public async Task<IActionResult> Put
+          ([FromServices] ISender sender,
+          [FromBody] EmergencyCart.Application.AccountContext.UseCases.Users    .Update.Security.UpdatePassword.Command request,
+          [FromRoute] string email)
+        {
+            var result = await sender.Send(request with { email = email });
+
+            if (result.IsFailure)
+            {
+                return result.Error.type switch
+                {
                     ErrorType.NotFound => NotFound(ErrorResponse.From(result.Error)),
 
                     _ => BadRequest(ErrorResponse.From(result.Error))
                 };
             }
 
-            return Ok(result.Value);
+            return NoContent();
         }
     }
 }

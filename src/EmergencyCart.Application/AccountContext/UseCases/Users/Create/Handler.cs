@@ -31,7 +31,7 @@ public sealed class Handler(IUserRepository userRepository, IUnitOfWork ofWork) 
         var user = User.Create(name, email, password);
 
         await userRepository.AddUserAsync(user, cancellationToken);
-        await ofWork.CommitAsync();
+        await ofWork.CommitAsync(cancellationToken);
 
         var response = new Response(Welcome);
         return Result.Success(response);
@@ -45,7 +45,6 @@ public sealed class Handler(IUserRepository userRepository, IUnitOfWork ofWork) 
             return Result.Success();
 
         var errors = result.Errors.Select(e => e.ErrorMessage).ToArray();
-
         return Result.Failure<Response>(new ValidationError(errors));
     }
 }

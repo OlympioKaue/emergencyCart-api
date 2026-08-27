@@ -5,9 +5,9 @@ namespace EmergencyCart.Infrastructure.AccountContext.Repositories.Abstractions;
 
 internal class UnitOfWork(AppDbContext dbContext) : IUnitOfWork
 {
-    public async Task CommitAsync()
-    => await dbContext.SaveChangesAsync();
+    public async Task CommitAsync(CancellationToken cancellationToken)
+    => await dbContext.SaveChangesAsync(cancellationToken);
 
-    public async Task RoolBackAsync()
+    public async Task RoolBackAsync(CancellationToken cancellationToken)
     => await Task.CompletedTask;
 }

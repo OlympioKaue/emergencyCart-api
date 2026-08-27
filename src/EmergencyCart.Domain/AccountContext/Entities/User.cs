@@ -53,5 +53,13 @@ public sealed class User : Entity, IAggregateRoots
         Email = Email.Create(newFirstEmail);
     }
 
+    public bool TestePassword(string password)
+    => Password.Verify(password, this.Password.Hash);
+
+    public void ChangePasswordEmail(string password)
+    {
+        Password = Password.Create(password);
+    }
+
     #endregion
 }

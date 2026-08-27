@@ -1,4 +1,5 @@
-﻿using EmergencyCart.Domain.SharedContext.ValueObjects;
+﻿using BCrypt.Net;
+using EmergencyCart.Domain.SharedContext.ValueObjects;
 using System.Text.RegularExpressions;
 
 namespace EmergencyCart.Domain.AccountContext.ValueObjects;
@@ -41,9 +42,12 @@ public sealed partial record class Password : ValueObject
     }
     #endregion
 
-    #region Generate Password Hash
+    #region Generate/Verify Password Hash
     private static string Encrypt(string password)
         => BCrypt.Net.BCrypt.HashPassword(password);
+
+    public static bool Verify(string password, string hashPassword)
+        => BCrypt.Net.BCrypt.Verify(password, hashPassword);
     #endregion
 
     #region Regex

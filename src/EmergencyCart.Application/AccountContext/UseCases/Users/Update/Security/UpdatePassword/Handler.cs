@@ -1,10 +1,10 @@
 ﻿using EmergencyCart.Application.AccountContext.Repositories.Abstractions;
 using EmergencyCart.Application.SharedContext.Repositories.Abstractions;
 using EmergencyCart.Application.SharedContext.Results;
-using EmergencyCart.Application.SharedContext.Results.Enums;
 using EmergencyCart.Application.SharedContext.UseCases.Abstractions;
+using FluentValidation;
 
-namespace EmergencyCart.Application.AccountContext.UseCases.Users.Update;
+namespace EmergencyCart.Application.AccountContext.UseCases.Users.Update.Security.UpdatePassword;
 
 public sealed class Handler(IUserRepository _userRepository, IUnitOfWork _ofWork) : ICommandHandler<Command, Response>
 {
@@ -14,16 +14,19 @@ public sealed class Handler(IUserRepository _userRepository, IUnitOfWork _ofWork
         if (validationResult.IsFailure)
             return Result.Failure<Response>(validationResult.Error);
 
-        var user = await _userRepository.GetUserAsync(request.id, cancellationToken);
+        //VERIFICAR SE EMAIL EXISTE
+        var user = await _userRepository.GetUserEmailAsync(request.email, cancellationToken);
         if (user is null)
-            return Result.Failure<Response>(Error.NotFound("User.NotFound", "User not found"));
+            return Result.Failure<Response>(Error.NotFound("User.Password.NotFound", "Email not found"));
 
-        user.ChangeNameUpdate(request.firstName, request.lastName);
+        //ATUALIZA O QUE PRECISA
+        var passwordTeste = user.TestePassword(request.passwordAntig);
+        if (passwordTeste is false)
+            return Result.Failure<Response>(Error.BadRequest("User.Password.BadRequest", "Password Invalid"));
 
-        user.ChangeEmailUpdate(request.email);
+        user.ChangePasswordEmail(request.newPassword);
 
         _userRepository.Update(user);
-
         await _ofWork.CommitAsync(cancellationToken);
 
         return Result.Success(new Response());
