@@ -13,7 +13,7 @@ public sealed class Handler(IUserRepository _userRepository, IUnitOfWork _ofWork
         //VERIFICAR SE O ID EXISTE
         var user = await _userRepository.GetUserAsync(request.id);
         if (user is null)
-            return Result.Failure<Response>(Error.NullValue);
+            return Result.Failure<Response>(Error.NotFound("User.NotFound", "Usuario não encontrado"));
 
         //GERA AQUILO QUE EU QUERO ATUALIZAR.
         user.ChangeNameUpdate(request.firstName, request.lastName);

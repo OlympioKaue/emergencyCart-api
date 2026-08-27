@@ -42,6 +42,16 @@ namespace EmergencyCart.API.Controllers
         {
             var result = await sender.Send(request with { id = id});
 
+            if (result.IsFailure)
+            {
+                return result.Error.type switch
+                {
+                    ErrorType.NotFound => NotFound(ErrorResponse.From(result.Error)),
+
+                    _ => BadRequest(ErrorResponse.From(result.Error))
+                };
+            }
+
             return Ok(result.Value);
         }
     }
