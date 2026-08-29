@@ -10,6 +10,11 @@ internal class UserRepository(AppDbContext dbContext) : IUserRepository
     public async Task AddUserAsync(User user, CancellationToken cancellationToken)
     => await dbContext.Users.AddAsync(user, cancellationToken);
 
+    public void Delete(User user)
+    {
+        dbContext.Users.Remove(user);
+    }
+
     public async Task<User?> GetUserAsync(Guid id, CancellationToken cancellationToken)
     => await dbContext.Users.FirstOrDefaultAsync(y => y.Id == id, cancellationToken);
 

@@ -10,4 +10,5 @@ public interface IUserRepository : IRepository<User>
     Task<User?> GetUserAsync(Guid id, CancellationToken cancellationToken);
     Task<User?> GetUserEmailAsync(string email, CancellationToken cancellationToken);
     void Update(User user);
+    void Delete(User user);
 }
