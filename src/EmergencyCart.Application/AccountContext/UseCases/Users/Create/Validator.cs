@@ -1,13 +1,18 @@
-﻿using EmergencyCart.Domain.AccountContext.ValueObjects;
+﻿using EmergencyCart.Domain.AccountContext.Enums;
+using EmergencyCart.Domain.AccountContext.ValueObjects;
 using FluentValidation;
 
 namespace EmergencyCart.Application.AccountContext.UseCases.Users.Create;
 
 public class Validator : AbstractValidator<Command>
 {
+    private static readonly string[] AllowedRoles =
+       Enum.GetNames(typeof(Role)); // ["Nurse", "Pharmacist"]
+
     public Validator()
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
+
 
         RuleFor(y => y.firstName)
             .NotEmpty().WithMessage("Fistname cannot be empty")
@@ -20,6 +25,10 @@ public class Validator : AbstractValidator<Command>
         RuleFor(y => y.email)
             .NotEmpty().WithMessage("Email cannot be empty")
             .Matches(Email.Pattern).WithMessage("Invalid email field. must contain more than 3 characters (ex:name@domain.com)");
+
+        RuleFor(y => y.role)
+            .Must(role => AllowedRoles.Contains(role, StringComparer.OrdinalIgnoreCase))
+            .WithMessage($"Role Invalid. Value Accept: {string.Join(", ", AllowedRoles)}");
 
         RuleFor(y => y.password)
             .NotEmpty().WithMessage("Password cannot be empty")

@@ -1,5 +1,4 @@
-﻿using EmergencyCart.Application.SharedContext.Results;
-using EmergencyCart.Application.SharedContext.UseCases.Abstractions;
+﻿using EmergencyCart.Application.SharedContext.UseCases.Abstractions;
 
 namespace EmergencyCart.Application.AccountContext.UseCases.Users.Update;
 

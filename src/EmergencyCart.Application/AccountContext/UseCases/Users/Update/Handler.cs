@@ -1,7 +1,6 @@
 ﻿using EmergencyCart.Application.AccountContext.Repositories.Abstractions;
 using EmergencyCart.Application.SharedContext.Repositories.Abstractions;
 using EmergencyCart.Application.SharedContext.Results;
-using EmergencyCart.Application.SharedContext.Results.Enums;
 using EmergencyCart.Application.SharedContext.UseCases.Abstractions;
 
 namespace EmergencyCart.Application.AccountContext.UseCases.Users.Update;
@@ -16,7 +15,7 @@ public sealed class Handler(IUserRepository _userRepository, IUnitOfWork _ofWork
 
         var user = await _userRepository.GetUserAsync(request.id, cancellationToken);
         if (user is null)
-            return Result.Failure<Response>(Error.NotFound("User.NotFound", "User not found"));
+            return Result.Failure<Response>(Error.NotFound("404", "User not found"));
 
         user.ChangeNameUpdate(request.firstName, request.lastName);
 

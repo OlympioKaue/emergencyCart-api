@@ -7,16 +7,22 @@ namespace EmergencyCart.Domain.AccountContext.Entities;
 
 public sealed class User : Entity, IAggregateRoots
 {
+    private static readonly HashSet<string> Prepositions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "da", "de", "do", "das", "dos", "e"
+    };
+
     #region // Constructors
     private User() : base(Guid.CreateVersion7()) { }
 
-    private User(Guid id, Name name, Email email, Password password) : base(id)
+    private User(Guid id, Name name, Email email, Password password, Role role, string userCode) : base(id)
     {
 
         Name = name;
         Email = email;
         Password = password;
-
+        Roles = role;
+        UserCode = userCode;
         IsActive = true;
     }
 
@@ -26,16 +32,18 @@ public sealed class User : Entity, IAggregateRoots
     public Name Name { get; private set; } = null!;
     public Email Email { get; private set; } = null!;
     public Password Password { get; private set; } = null!;
-    public Role Roles { get; }
+    public string UserCode { get; private set; } = null!;
+    public Role Roles { get; private set; }
     public bool IsActive { get; } = false;
 
     #endregion
 
     #region Factory Method
-    public static User Create(Name name, Email email, Password password)
+    public static User Create(Name name, Email email, Password password, Role role)
     {
         var id = Guid.NewGuid();
-        return new User(id, name, email, password);
+        var userCode = Name.CreateUseCode(name.FirstName, name.LastName, role);
+        return new User(id, name, email, password, role, userCode);
     }
 
     public void ChangeNameUpdate(string? firstName, string? lastName)

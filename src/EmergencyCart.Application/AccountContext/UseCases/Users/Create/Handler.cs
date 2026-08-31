@@ -1,9 +1,9 @@
 ﻿using EmergencyCart.Application.AccountContext.Repositories.Abstractions;
 using EmergencyCart.Application.SharedContext.Repositories.Abstractions;
 using EmergencyCart.Application.SharedContext.Results;
-using EmergencyCart.Application.SharedContext.Results.Enums;
 using EmergencyCart.Application.SharedContext.UseCases.Abstractions;
 using EmergencyCart.Domain.AccountContext.Entities;
+using EmergencyCart.Domain.AccountContext.Enums;
 using EmergencyCart.Domain.AccountContext.ValueObjects;
 
 namespace EmergencyCart.Application.AccountContext.UseCases.Users.Create;
@@ -20,7 +20,7 @@ public sealed class Handler(IUserRepository userRepository, IUnitOfWork ofWork) 
 
         var emailExists = await userRepository.VerifyEmailExistsAsync(request.email, cancellationToken);
         if (emailExists)
-            return Result.Failure<Response>(Error.Conflict("User.Conflict", "E-mail already in use"));
+            return Result.Failure<Response>(Error.Conflict("409", "E-mail already in use"));
 
         var name = Name.Create(request.firstName, request.lastName);
 
@@ -28,13 +28,14 @@ public sealed class Handler(IUserRepository userRepository, IUnitOfWork ofWork) 
 
         var password = Password.Create(request.password);
 
-        var user = User.Create(name, email, password);
+        var role = Enum.Parse<Role>(request.role, ignoreCase: true);
+
+        var user = User.Create(name, email, password, role);
 
         await userRepository.AddUserAsync(user, cancellationToken);
         await ofWork.CommitAsync(cancellationToken);
 
-        var response = new Response(Welcome);
-        return Result.Success(response);
+        return Result.Success(new Response(Welcome));
     }
 
     private static Result Validate(Command request)

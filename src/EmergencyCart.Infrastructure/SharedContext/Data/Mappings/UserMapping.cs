@@ -26,7 +26,7 @@ public class UserMapping : IEntityTypeConfiguration<User>
             config.Property(user => user.LastName)
             .HasColumnName("LastName")
             .HasColumnType("VARCHAR")
-            .HasMaxLength(20)
+            .HasMaxLength(100)
             .IsRequired(true);
         });
 
@@ -44,7 +44,7 @@ public class UserMapping : IEntityTypeConfiguration<User>
             .IsRequired(true);
         });
 
-    
+
         builder.OwnsOne(user => user.Password, config =>
         {
             config.Property(user => user.Hash)
@@ -57,6 +57,12 @@ public class UserMapping : IEntityTypeConfiguration<User>
         builder.Property(user => user.Roles)
             .HasColumnName("Role")
             .HasColumnType("INT")
+            .IsRequired(true);
+
+        builder.Property(user => user.UserCode)
+            .HasColumnName("Code")
+            .HasColumnType("VARCHAR")
+            .HasMaxLength(30)
             .IsRequired(true);
 
 

@@ -4,6 +4,7 @@ using EmergencyCart.Infrastructure.SharedContext.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmergencyCart.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260831161821_v1-userCodeTableIsRequired")]
+    partial class v1userCodeTableIsRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +148,6 @@ namespace EmergencyCart.API.Migrations
 
                     b.Property<string>("UserCode")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("Code");
 
@@ -223,7 +225,7 @@ namespace EmergencyCart.API.Migrations
 
                             b1.Property<string>("LastName")
                                 .IsRequired()
-                                .HasMaxLength(100)
+                                .HasMaxLength(20)
                                 .HasColumnType("VARCHAR")
                                 .HasColumnName("LastName");
 
