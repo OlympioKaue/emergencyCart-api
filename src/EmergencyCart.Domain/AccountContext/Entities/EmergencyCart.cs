@@ -1,23 +1,26 @@
-﻿using EmergencyCart.Domain.SharedContext.Entities;
+﻿using EmergencyCart.Domain.SharedContext.AggregateRoots.Abstractions;
+using EmergencyCart.Domain.SharedContext.Entities;
 
 namespace EmergencyCart.Domain.AccountContext.Entities;
 
-public sealed class EmergencyCart : Entity
+public sealed class EmergencyCart : Entity, IAggregateRoots
 {
     private readonly List<CartItem> _cartItems;
 
     #region Constructors
     private EmergencyCart() : base(Guid.CreateVersion7()) { }
 
-    private EmergencyCart(Guid id) : base(id)
+    private EmergencyCart(Guid id, Guid sectorId, string code) : base(id)
     {
         _cartItems = [];
+        SectorId = sectorId;
+        Code = code;
+        IsActive = true;
     }
     #endregion
 
     #region Properties
     public string Code { get; } = string.Empty;
-    public string Location { get; } = string.Empty;
     public bool IsActive { get; } = false;
     #endregion
 
@@ -26,4 +29,10 @@ public sealed class EmergencyCart : Entity
     public Sector Sector { get; } = null!;
     public IReadOnlyCollection<CartItem> CartItems => _cartItems.ToArray();
     #endregion
+
+    public static EmergencyCart Create(Guid sectorId, string code)
+    {
+        var id = Guid.NewGuid();
+        return new EmergencyCart(id, sectorId, code);
+    }
 }

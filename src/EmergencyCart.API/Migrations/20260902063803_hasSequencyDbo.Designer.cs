@@ -4,6 +4,7 @@ using EmergencyCart.Infrastructure.SharedContext.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmergencyCart.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260902063803_hasSequencyDbo")]
+    partial class hasSequencyDbo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,6 +68,12 @@ namespace EmergencyCart.API.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("BIT")
                         .HasColumnName("IsActive");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Location");
 
                     b.Property<Guid>("SectorId")
                         .HasColumnType("uniqueidentifier");

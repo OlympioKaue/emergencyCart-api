@@ -12,6 +12,9 @@ public class SectorRepository(AppDbContext dbContext) : ISectorRepository
        await dbContext.AddAsync(sector, cancellationToken);
     }
 
+    public async Task<Sector?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    => await dbContext.Sectors.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+
     public async Task<bool> VerifyExistNameSector(string name, CancellationToken cancellationToken) 
         => await dbContext.Sectors
         .AsNoTracking()

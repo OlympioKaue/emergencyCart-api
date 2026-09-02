@@ -21,11 +21,11 @@ public class EmergencyCartMapping : IEntityTypeConfiguration<EmergencyCart.Domai
             .HasMaxLength(25)
             .IsRequired(true);
 
-        builder.Property(cart => cart.Location)
-            .HasColumnName("Location")
-            .HasColumnType("VARCHAR")
-            .HasMaxLength(25)
-            .IsRequired(true);
+        //builder.Property(cart => cart.Location)
+        //    .HasColumnName("Location")
+        //    .HasColumnType("VARCHAR")
+        //    .HasMaxLength(25)
+        //    .IsRequired(true);
 
         builder.Property(cart => cart.IsActive)
            .HasColumnName("IsActive")
