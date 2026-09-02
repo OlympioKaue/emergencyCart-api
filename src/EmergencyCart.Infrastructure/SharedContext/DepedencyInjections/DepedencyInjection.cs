@@ -20,6 +20,7 @@ public static class DepedencyInjection
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ISectorRepository, SectorRepository>();
     }
 
     private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)

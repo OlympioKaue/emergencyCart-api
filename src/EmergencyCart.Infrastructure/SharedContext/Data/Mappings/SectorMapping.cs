@@ -15,7 +15,7 @@ public class SectorMapping : IEntityTypeConfiguration<Sector>
         #endregion
 
         #region Column
-        builder.Property(sector => sector.Name)
+        builder.Property(sector => sector.Names)
             .HasColumnName("Name")
             .HasColumnType("VARCHAR")
             .HasMaxLength(60)

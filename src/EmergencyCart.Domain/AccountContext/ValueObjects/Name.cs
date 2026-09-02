@@ -6,11 +6,13 @@ namespace EmergencyCart.Domain.AccountContext.ValueObjects;
 
 public sealed partial record class Name : ValueObject
 {
+    #region Constants
     public static readonly HashSet<string> Prepositions = new(StringComparer.OrdinalIgnoreCase)
     {
         "da", "de", "do", "das", "dos", "e"
     };
     public const string Pattern = @"^\p{L}+(?: \p{L}+)*$";
+    #endregion
 
     private Name() { }
 
@@ -47,7 +49,7 @@ public sealed partial record class Name : ValueObject
         return new Name(formattedFirstName, formattedLastName);
     }
 
-    private static string FormatName(string name)
+    public static string FormatName(string name)
     {
         var words = name
             .Trim()

@@ -17,4 +17,10 @@
     <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AccountContext\UseCases\Sectors\Delete\" />
+    <Folder Include="AccountContext\UseCases\Sectors\Read\" />
+    <Folder Include="AccountContext\UseCases\Sectors\Update\" />
+  </ItemGroup>
+
 </Project>

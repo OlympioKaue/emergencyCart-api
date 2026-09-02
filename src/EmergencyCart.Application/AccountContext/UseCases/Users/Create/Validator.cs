@@ -13,7 +13,6 @@ public class Validator : AbstractValidator<Command>
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
 
-
         RuleFor(y => y.firstName)
             .NotEmpty().WithMessage("Fistname cannot be empty")
             .Matches(Name.Pattern).WithMessage("The First Name field must contain only letters and single spaces (no numbers or symbols)");
